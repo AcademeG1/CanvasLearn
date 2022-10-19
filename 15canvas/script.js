@@ -1,8 +1,10 @@
+let click = 0;
+let arrNum = [[1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,0]]
 function game() { // чудо класс с методами
    let panelView = null;
    let panelNumber = null;
-   let click = 0;
-   let arrNum = [[1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,0]]
+
+
     //поиск пустой клетки
     function getNull() {
         for (let i = 0; i < arrNum.length; i++) { // перебираем большой массив
@@ -139,7 +141,7 @@ function initial() {
         roundedRect(context,x + 3, y + 3 , panelSize - 8, panelSize - 8, 10)
     });
     objGame.setPanelNumber(function () {
-        context.font = 'bold 60px sans'
+        context.font = 'bold 60px Arial, sans-serif'
         context.textAlign = 'center'
         context.textBaseline = 'middle'
         context.fillStyle = 'blue'
@@ -163,11 +165,19 @@ function initial() {
             context.fillRect(0, 0, canvas.width, canvas.height) // заливаем фон
             objGame.draw(context, panelSize)
         }
+        // counterText.innerText = ` ${click} `
     }
 
     canvas.onclick = function (e) {
         let x = (e.pageX - canvas.offsetLeft) / panelSize | 0;
         let y = (e.pageY - canvas.offsetTop) / panelSize | 0;
+        if (click === 0) { // чтобы не было пропуска на первый ход
+            click++
+        }
+        document.querySelector('.click-counter').innerHTML = `${click}`
+
+        localStorage.setItem('arrNum', JSON.stringify(arrNum)) // сейв инфы
+
         event(x, y)
     }
 
@@ -178,7 +188,31 @@ function initial() {
     };
 
 }
-// initial();
+
+let timer = document.createElement('div') // создание блока для таймера
+timer.className = 'timer'; // добавление класса
+let timerMinute = 0 // минут
+let timerSecond = 0 // секунды
+setInterval(() => { // таймер для таймера
+    timerSecond++; // счетчик секунд
+    if (timerSecond > 60) {
+        timerMinute++; // счетчик минут
+        timerSecond = 0;
+    }
+    document.querySelector('.timer').innerHTML = ` ${timerMinute.toString().length === 1 ? '0' + timerMinute : timerMinute } : ${timerSecond.toString().length === 1 ? '0' + timerSecond : timerSecond} `
+}, 1000)
+
+let timerText = document.createTextNode(` ${timerMinute} : ${timerSecond} `) // текстовый блок с таймером
+timer.prepend(timerText) // добавление таймера в блок
+document.body.prepend(timer) // добавление на страницу
+
+let clic = document.createElement('div') // создание блока для счетчика
+clic.className = 'click-counter'
+let counterText = document.createTextNode(` 0 `)
+clic.prepend(counterText)
+document.body.append(clic)
+
+initial();
 
 
 
