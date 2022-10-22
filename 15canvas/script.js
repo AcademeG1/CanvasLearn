@@ -1,3 +1,24 @@
+function initCanvas() {
+    let can = document.createElement("canvas");
+    can.setAttribute('id', 'puzzle')
+    document.body.prepend(can)
+}
+
+initCanvas() // создание и показ канваса
+
+let swipeSound;
+swipeSound = new Audio('./25d7ee378d6addc.mp3');
+let soundOn = true;
+
+//иконка звука
+let iconSound = document.createElement("img")
+iconSound.className = 'iconSound'
+document.body.prepend(iconSound)
+
+iconSound.addEventListener('click', () => {
+    soundOn ? soundOn = false : soundOn = true;
+})
+
 let timer = document.createElement('div') // создание блока для таймера
 timer.className = 'timer'; // добавление класса
 
@@ -57,9 +78,12 @@ function game() { // чудо класс с методами
             arrNum[nullY][nullX] = arrNum[y][x]; //записываем вместо 0 наше число (перемещаем число на пустую клетку)
             arrNum[y][x] = 0; // вместо числа, записываем 0 (перемещаем пустую клетку, на место числа)
             click++; // общее число кликов
+            if (soundOn) {
+                swipeSound.play()
+            }
         }
     };
-
+    // swipeSound
     // проверка победы каждый ход
     this.win = function () {
         let etalon = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 0]] // как выглядит эталонная и победная часть
@@ -99,18 +123,23 @@ function game() { // чудо класс с методами
 
     // внешний вид клетки
     this.setPanelView = function (func) {
+        // setInterval(() => {}, 200)
+
         panelView = func
     }
 
     // внешний вид цифр
     this.setPanelNumber = function (func) {
+        // setInterval(() => {}, 200)
         panelNumber = func
     }
 
     this.draw = function (context, size) {
         for (let i = 0; i < 4; i++) { // проход по массиву
             for (let j = 0; j < 4; j++) { // проход по массиву
+
                 if (arrNum[i][j] > 0) { // проверка или элемент не пустое место
+
                     if (panelView !== null) { // проверка или содержит в себе функцию с параметрами отрисовки
                         panelView(j * size, i * size) // передает в функцию координаты x и y для размеров сторон
                     }
@@ -184,6 +213,8 @@ function initial() {
     context.fillRect(0, 0, canvas.width, canvas.height) // заливаем фон
     objGame.draw(context, panelSize)
 
+
+
     function event(x, y) {
         objGame.move(x, y);
         context.fillStyle = '#A4FB00'
@@ -191,12 +222,10 @@ function initial() {
         objGame.draw(context, panelSize)
 
         if (objGame.win()) {
-            // alert(`Собрано за ${objGame.getClick()} касания!`)
-
 
             banner.className = 'winBanner'
-            clearInterval(timerMinute);
-            clearInterval(timerSecond);
+            // clearInterval(tim);
+            // clearInterval(timerSecond);
             bannerText = document.createTextNode(`Ура! Вы решили головоломку за ${timerMinute}: ${timerSecond} и ${click} ходов!`)
             banner.prepend(bannerText)
             document.body.append(banner)
@@ -211,6 +240,7 @@ function initial() {
             objGame.draw(context, panelSize)
         }
         document.querySelector('.click-counter').innerHTML = `${click}`
+
         // counterText.innerText = ` ${click} `
     }
 
@@ -225,7 +255,7 @@ function initial() {
         context.fillRect(0, 0, canvas.width, canvas.height) // заливаем фон
         // banner.classList.remove('active')
         banner.remove()
-        bannerText.remove();
+        bannerText === undefined ? console.log() : bannerText.remove();
         fon.classList.remove('active')
         objGame.draw(context, panelSize)
     })
@@ -234,11 +264,6 @@ function initial() {
     canvas.onclick = function (e) {
         let x = (e.pageX - canvas.offsetLeft) / panelSize | 0;
         let y = (e.pageY - canvas.offsetTop) / panelSize | 0;
-        // if (click === 0) { // чтобы не было пропуска на первый ход
-        //     click++
-        // }
-
-
         localStorage.setItem('arrNum', JSON.stringify(arrNum)) // сейв инфы
 
         event(x, y)
@@ -255,7 +280,7 @@ function initial() {
 
 let timerMinute = 0 // минут
 let timerSecond = 0 // секунды
-setInterval(() => { // таймер для таймера
+let tim = setInterval(() => { // таймер для таймера
     timerSecond++; // счетчик секунд
     if (timerSecond > 60) {
         timerMinute++; // счетчик минут
