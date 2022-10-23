@@ -1,3 +1,57 @@
+function initCanvas() {
+    let can = document.createElement("canvas");
+    can.setAttribute('id', 'puzzle')
+    document.body.prepend(can)
+}
+
+initCanvas() // создание и показ канваса
+
+let swipeSound;
+swipeSound = new Audio('./25d7ee378d6addc.mp3');
+let soundOn = true;
+
+//иконка звука
+let iconSound = document.createElement("img")
+iconSound.className = 'iconSound'
+document.body.prepend(iconSound)
+
+iconSound.addEventListener('click', () => {
+    if (soundOn) {
+        soundOn = false;
+        iconSound.style.background = 'url(soundOff.png) no-repeat';
+        iconSound.style.backgroundSize = 'contain'
+    } else {
+        soundOn = true;
+        iconSound.style.background = 'url(soundOn.png) no-repeat';
+        iconSound.style.backgroundSize = 'contain'
+    }
+})
+
+let timer = document.createElement('div') // создание блока для таймера
+timer.className = 'timer'; // добавление класса
+
+let clic = document.createElement('div') // создание блока для счетчика
+clic.className = 'click-counter'
+
+let btn = document.createElement('div') // создание кнопки
+btn.className = 'btn';
+let btnText = document.createTextNode(` New Game `)
+btn.prepend(btnText)
+document.body.append(btn)
+
+let banner = document.createElement('div')
+let bannerText;
+
+let fon = document.createElement('div')
+
+
+let flexDiv = document.createElement('div');
+flexDiv.className = 'count-timer';
+
+
+
+
+
 let click = 0;
 let arrNum = [[1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,0]]
 function game() { // чудо класс с методами
@@ -38,9 +92,12 @@ function game() { // чудо класс с методами
             arrNum[nullY][nullX] = arrNum[y][x]; //записываем вместо 0 наше число (перемещаем число на пустую клетку)
             arrNum[y][x] = 0; // вместо числа, записываем 0 (перемещаем пустую клетку, на место числа)
             click++; // общее число кликов
+            if (soundOn) {
+                swipeSound.play()
+            }
         }
     };
-
+    // swipeSound
     // проверка победы каждый ход
     this.win = function () {
         let etalon = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 0]] // как выглядит эталонная и победная часть
@@ -80,18 +137,23 @@ function game() { // чудо класс с методами
 
     // внешний вид клетки
     this.setPanelView = function (func) {
+        // setInterval(() => {}, 200)
+
         panelView = func
     }
 
     // внешний вид цифр
     this.setPanelNumber = function (func) {
+        // setInterval(() => {}, 200)
         panelNumber = func
     }
 
     this.draw = function (context, size) {
         for (let i = 0; i < 4; i++) { // проход по массиву
             for (let j = 0; j < 4; j++) { // проход по массиву
+
                 if (arrNum[i][j] > 0) { // проверка или элемент не пустое место
+
                     if (panelView !== null) { // проверка или содержит в себе функцию с параметрами отрисовки
                         panelView(j * size, i * size) // передает в функцию координаты x и y для размеров сторон
                     }
@@ -112,8 +174,21 @@ function game() { // чудо класс с методами
 function initial() {
     const canvas = document.getElementById('puzzle'), // создаем канвас и контекст
         context = canvas.getContext('2d');
-    canvas.width = 500; // ширина игровой области
-    canvas.height = 500; // высота игровой области
+    if (window.innerWidth >= 541) {
+        canvas.width = 500; // ширина игровой области
+        canvas.height = 500; // высота игровой области
+    }
+
+    if (window.innerWidth <= 540) {
+        canvas.width = 350; // ширина игровой области
+        canvas.height = 350; // высота игровой области
+    }
+
+    if (window.innerWidth <= 390) {
+        canvas.width = 260; // ширина игровой области
+        canvas.height = 260; // высота игровой области
+    }
+
 
     let panelSize = canvas.width / 4;
 
@@ -122,8 +197,9 @@ function initial() {
     // задаем внешний вид ячеек
     objGame.setPanelView(function (x, y) { // заливка блоков градиентом
         let gradient = context.createLinearGradient(0, 0, 900, 0)
-        gradient.addColorStop('0', 'green')
-        gradient.addColorStop('1', 'orange')
+        gradient.addColorStop('0', '#FFB800')
+        gradient.addColorStop('.5', '#644800')
+        gradient.addColorStop('1', '#FFDB7D')
 
         context.fillStyle = gradient; // цвет заливки квадратов
 
@@ -141,41 +217,67 @@ function initial() {
         roundedRect(context,x + 3, y + 3 , panelSize - 8, panelSize - 8, 10)
     });
     objGame.setPanelNumber(function () {
-        context.font = 'bold 60px Arial, sans-serif'
+        context.font = `bold ${canvas.width / 8}px Arial, sans-serif`
         context.textAlign = 'center'
         context.textBaseline = 'middle'
-        context.fillStyle = 'blue'
+        context.fillStyle = '#00285C'
     });
 
-    context.fillStyle = 'blue' // цвет фона
+    context.fillStyle = '#A4FB00' // цвет фона
     context.fillRect(0, 0, canvas.width, canvas.height) // заливаем фон
     objGame.draw(context, panelSize)
 
+
+
     function event(x, y) {
         objGame.move(x, y);
-        context.fillStyle = 'blue'
+        context.fillStyle = '#A4FB00'
         context.fillRect(0, 0, canvas.width, canvas.height) // заливаем фон
         objGame.draw(context, panelSize)
 
         if (objGame.win()) {
-            alert(`Собрано за ${objGame.getClick()} касания!`)
-            objGame.mix(300)
 
-            context.fillStyle = 'blue' // цвет фона
+            banner.className = 'winBanner'
+            // clearInterval(tim);
+            // clearInterval(timerSecond);
+            bannerText = document.createTextNode(`Ура! Вы решили головоломку за ${timerMinute}: ${timerSecond} и ${click} ходов!`)
+            banner.prepend(bannerText)
+            document.body.append(banner)
+
+
+            fon.classList.add('active')
+            document.body.prepend(fon) // затемнение
+
+            objGame.mix(300)
+            context.fillStyle = '#A4FB00' // цвет фона
             context.fillRect(0, 0, canvas.width, canvas.height) // заливаем фон
             objGame.draw(context, panelSize)
         }
+        document.querySelector('.click-counter').innerHTML = `${click}`
+
         // counterText.innerText = ` ${click} `
     }
+
+
+    btn.addEventListener('click', () => {
+        objGame.mix(300)
+        click = 0
+        document.querySelector('.click-counter').innerHTML = `${click}`
+        timerMinute = 0 // минут
+        timerSecond = 0 // секунды
+        context.fillStyle = '#A4FB00' // цвет фона
+        context.fillRect(0, 0, canvas.width, canvas.height) // заливаем фон
+        // banner.classList.remove('active')
+        banner.remove()
+        bannerText === undefined ? console.log() : bannerText.remove();
+        fon.classList.remove('active')
+        objGame.draw(context, panelSize)
+    })
+
 
     canvas.onclick = function (e) {
         let x = (e.pageX - canvas.offsetLeft) / panelSize | 0;
         let y = (e.pageY - canvas.offsetTop) / panelSize | 0;
-        if (click === 0) { // чтобы не было пропуска на первый ход
-            click++
-        }
-        document.querySelector('.click-counter').innerHTML = `${click}`
-
         localStorage.setItem('arrNum', JSON.stringify(arrNum)) // сейв инфы
 
         event(x, y)
@@ -189,11 +291,10 @@ function initial() {
 
 }
 
-let timer = document.createElement('div') // создание блока для таймера
-timer.className = 'timer'; // добавление класса
+
 let timerMinute = 0 // минут
 let timerSecond = 0 // секунды
-setInterval(() => { // таймер для таймера
+let tim = setInterval(() => { // таймер для таймера
     timerSecond++; // счетчик секунд
     if (timerSecond > 60) {
         timerMinute++; // счетчик минут
@@ -206,11 +307,12 @@ let timerText = document.createTextNode(` ${timerMinute} : ${timerSecond} `) // 
 timer.prepend(timerText) // добавление таймера в блок
 document.body.prepend(timer) // добавление на страницу
 
-let clic = document.createElement('div') // создание блока для счетчика
-clic.className = 'click-counter'
+
 let counterText = document.createTextNode(` 0 `)
 clic.prepend(counterText)
 document.body.append(clic)
+
+
 
 initial();
 

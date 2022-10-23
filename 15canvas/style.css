@@ -1,38 +1,124 @@
 body {
-    background: blueviolet;
+    background: #728E3E;
+    transition: all 2s;
+    display: flex;
+    justify-content: center;
 }
 
-canvas {
+.iconSound {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    background: url(soundOn.png) no-repeat;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+}
+
+
+
+#puzzle {
     position: absolute;
-    top: 50px;
-    left: 500px;
+    top: 15%;
+    /*left: 35%;*/
     border: 5px solid black;
-    background: blue;
+    background: #728E3E;
     border-radius: 5px;
 }
 
 .timer {
-    position: absolute;
-    top: 570px;
-    left: 550px;
-    font: bold 35px Arial, sans-serif;
-    background: blue;
+    /*position: absolute;*/
+    /*top: 630px;*/
+    /*left: 37%;*/
+    font: bold 30px Sathu, sans-serif;
+    background: #406200;
     border-radius: 10px;
     width: 120px;
     height: 55px;
     text-align: center;
     padding-top: 15px;
+    margin: 15px 30px 0 0;
 }
 
 .click-counter {
-    font: bold 35px Arial, sans-serif;
+    font: bold 35px Sathu, sans-serif;
     text-align: center;
     border-radius: 10px;
     padding-top: 15px;
-    position: absolute;
-    top: 570px;
-    left: 800px;
+    /*position: absolute;*/
+    /*top: 570px;*/
+    /*left: 58%;*/
     width: 120px;
     height: 55px;
-    background: blue;
+    background: #406200;
+    margin: 15px 0 0 30px;
+}
+
+.btn {
+    position: absolute;
+    top: 650px;
+    /*left: 43%;*/
+    font: bold 30px Sathu, sans-serif;
+    text-align: center;
+    padding-top: 10px;
+    width: 200px;
+    height: 45px;
+    cursor: pointer;
+    background: gold;
+    border-radius: 5px;
+    z-index: 5;
+    margin-top: 30px;
+}
+
+.winBanner {
+    position: absolute;
+    top: 40%;
+    /*left: 28%;*/
+    background: bisque;
+    max-width: 720px;
+    padding: 30px;
+    border-radius: 10px;
+    font: bold 30px Arial, sans-serif;
+    z-index: 5;
+    transition: all 2s;
+}
+
+.active {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    background: rgba(0,0,0,0.5);
+    transition: all 2s;
+}
+
+@media (max-width: 540px) {
+    .btn {
+        top: 520px;
+    }
+}
+
+@media (max-width: 390px) {
+    .btn {
+        top: 400px;
+    }
+    .timer {
+        font: bold 20px Sathu, sans-serif;
+        width: 90px;
+        height: 45px;
+    }
+    .click-counter {
+        font: bold 20px Sathu, sans-serif;
+        width: 90px;
+        height: 45px;
+    }
+    .iconSound {
+        width: 80px;
+        height: 80px;
+    }
+    #puzzle {
+        top: 17%;
+    }
 }
