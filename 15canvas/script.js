@@ -274,7 +274,14 @@ function initial() {
 
 
             fon.classList.add('active')
+            fon.style.height = String(Math.max(
+                document.body.scrollHeight, document.documentElement.scrollHeight,
+                document.body.offsetHeight, document.documentElement.offsetHeight,
+                document.body.clientHeight, document.documentElement.clientHeight
+            ))+ 'px';
             document.body.append(fon) // затемнение
+
+
 
             objGame.mix(300)
             context.fillStyle = '#A4FB00' // цвет фона
@@ -319,6 +326,15 @@ function initial() {
 
 }
 
+
+
+window.addEventListener('resize', () => {
+    fon.style.height = String(Math.max(
+        document.body.scrollHeight, document.documentElement.scrollHeight,
+        document.body.offsetHeight, document.documentElement.offsetHeight,
+        document.body.clientHeight, document.documentElement.clientHeight
+    )) + 'px';
+})
 
 let timerMinute = 0 // минут
 let timerSecond = 0 // секунды
