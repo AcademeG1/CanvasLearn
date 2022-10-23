@@ -188,12 +188,29 @@ function initial() {
         canvas.width = 260; // ширина игровой области
         canvas.height = 260; // высота игровой области
     }
-
+    
+    
+    function updateCounter() {
+        click++;
+        document.querySelector('.click-counter').innerHTML = `${click}`
+        click--;
+        document.querySelector('.click-counter').innerHTML = `${click}`
+    }
 
     let panelSize = canvas.width / 4;
 
     let objGame = new game();
-    objGame.mix(500); // перемешиваем 500 раз
+    //если локал сторадже что-то содержит, то
+    if (localStorage.length === 0) {
+        objGame.mix(500); // перемешиваем 500 раз
+    } else {
+        arrNum = JSON.parse(localStorage.getItem('arrNum'))
+        timerMinute = JSON.parse(localStorage.getItem('timerMinute'))
+        timerSecond = JSON.parse(localStorage.getItem('timerSecond'))
+        click = JSON.parse(localStorage.getItem('clickss'))
+        updateCounter();
+    }
+
     // задаем внешний вид ячеек
     objGame.setPanelView(function (x, y) { // заливка блоков градиентом
         let gradient = context.createLinearGradient(0, 0, 900, 0)
@@ -203,7 +220,7 @@ function initial() {
 
         context.fillStyle = gradient; // цвет заливки квадратов
 
-        // скругление краев квадратов, но еще не разобрал
+        // скругление краев квадратов
         function roundedRect(context, x, y, width, height, radius) {
             context.beginPath();
             context.moveTo(x, y + radius);
@@ -254,12 +271,15 @@ function initial() {
             objGame.draw(context, panelSize)
         }
         document.querySelector('.click-counter').innerHTML = `${click}`
-
-        // counterText.innerText = ` ${click} `
+        localStorage.setItem('arrNum', JSON.stringify(arrNum)) // сейв инфы
+        localStorage.setItem('timerMinute', JSON.stringify(timerMinute))
+        localStorage.setItem('timerSecond', JSON.stringify(timerSecond))
+        localStorage.setItem('clickss', JSON.stringify(click))
     }
 
 
     btn.addEventListener('click', () => {
+
         objGame.mix(300)
         click = 0
         document.querySelector('.click-counter').innerHTML = `${click}`
@@ -278,7 +298,7 @@ function initial() {
     canvas.onclick = function (e) {
         let x = (e.pageX - canvas.offsetLeft) / panelSize | 0;
         let y = (e.pageY - canvas.offsetTop) / panelSize | 0;
-        localStorage.setItem('arrNum', JSON.stringify(arrNum)) // сейв инфы
+        // localStorage.setItem('arrNum', JSON.stringify(arrNum)) // сейв инфы
 
         event(x, y)
     }
