@@ -45,8 +45,8 @@ let bannerText;
 let fon = document.createElement('div')
 
 
-let flexDiv = document.createElement('div');
-flexDiv.className = 'count-timer';
+//let flexDiv = document.createElement('div');
+//flexDiv.className = 'count-timer';
 
 
 
@@ -206,7 +206,9 @@ function initial() {
     } else {
         arrNum = JSON.parse(localStorage.getItem('arrNum'))
         timerMinute = JSON.parse(localStorage.getItem('timerMinute'))
+        Number(timerMinute)
         timerSecond = JSON.parse(localStorage.getItem('timerSecond'))
+        Number(timerSecond)
         click = JSON.parse(localStorage.getItem('clickss'))
         updateCounter();
     }
@@ -320,7 +322,7 @@ let tim = setInterval(() => { // таймер для таймера
         timerMinute++; // счетчик минут
         timerSecond = 0;
     }
-    document.querySelector('.timer').innerHTML = ` ${timerMinute.toString().length === 1 ? '0' + timerMinute : timerMinute } : ${timerSecond.toString().length === 1 ? '0' + timerSecond : timerSecond} `
+    document.querySelector('.timer').innerHTML = ` ${String(timerMinute).length === 1 ? '0' + timerMinute : timerMinute } : ${String(timerSecond).length === 1 ? '0' + timerSecond : timerSecond} `
 }, 1000)
 
 let timerText = document.createTextNode(` ${timerMinute} : ${timerSecond} `) // текстовый блок с таймером

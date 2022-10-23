@@ -19,7 +19,7 @@ body {
 
 #puzzle {
     position: absolute;
-    top: 15%;
+    top: 135px;
     /*left: 35%;*/
     border: 5px solid black;
     background: #728E3E;
@@ -119,6 +119,6 @@ body {
         height: 80px;
     }
     #puzzle {
-        top: 17%;
+        top: 135px;
     }
 }
