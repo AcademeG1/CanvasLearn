@@ -16,7 +16,15 @@ iconSound.className = 'iconSound'
 document.body.prepend(iconSound)
 
 iconSound.addEventListener('click', () => {
-    soundOn ? soundOn = false : soundOn = true;
+    if (soundOn) {
+        soundOn = false;
+        iconSound.style.background = 'url(soundOff.png) no-repeat';
+        iconSound.style.backgroundSize = 'contain'
+    } else {
+        soundOn = true;
+        iconSound.style.background = 'url(soundOn.png) no-repeat';
+        iconSound.style.backgroundSize = 'contain'
+    }
 })
 
 let timer = document.createElement('div') // создание блока для таймера
@@ -35,6 +43,12 @@ let banner = document.createElement('div')
 let bannerText;
 
 let fon = document.createElement('div')
+
+
+let flexDiv = document.createElement('div');
+flexDiv.className = 'count-timer';
+
+
 
 
 
@@ -160,17 +174,17 @@ function game() { // чудо класс с методами
 function initial() {
     const canvas = document.getElementById('puzzle'), // создаем канвас и контекст
         context = canvas.getContext('2d');
-    if (window.innerWidth >= 560) {
+    if (window.innerWidth >= 541) {
         canvas.width = 500; // ширина игровой области
         canvas.height = 500; // высота игровой области
     }
 
-    if (window.innerWidth <= 560) {
+    if (window.innerWidth <= 540) {
         canvas.width = 350; // ширина игровой области
         canvas.height = 350; // высота игровой области
     }
 
-    if (window.innerWidth <= 400) {
+    if (window.innerWidth <= 390) {
         canvas.width = 260; // ширина игровой области
         canvas.height = 260; // высота игровой области
     }

@@ -1,29 +1,35 @@
 body {
     background: #728E3E;
+    transition: all 2s;
+    display: flex;
+    justify-content: center;
 }
 
 .iconSound {
-    width: 120px;
-    height: 120px;
-    background: url(./free-icon-no-sound-5470679.png) no-repeat;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    background: url(soundOn.png) no-repeat;
     background-size: contain;
     border: none;
     cursor: pointer;
 }
 
+
+
 #puzzle {
     position: absolute;
-    top: 50px;
-    left: 500px;
+    top: 15%;
+    /*left: 35%;*/
     border: 5px solid black;
     background: #728E3E;
     border-radius: 5px;
 }
 
 .timer {
-    position: absolute;
-    top: 570px;
-    left: 550px;
+    /*position: absolute;*/
+    /*top: 630px;*/
+    /*left: 37%;*/
     font: bold 30px Sathu, sans-serif;
     background: #406200;
     border-radius: 10px;
@@ -31,6 +37,7 @@ body {
     height: 55px;
     text-align: center;
     padding-top: 15px;
+    margin: 15px 30px 0 0;
 }
 
 .click-counter {
@@ -38,18 +45,19 @@ body {
     text-align: center;
     border-radius: 10px;
     padding-top: 15px;
-    position: absolute;
-    top: 570px;
-    left: 800px;
+    /*position: absolute;*/
+    /*top: 570px;*/
+    /*left: 58%;*/
     width: 120px;
     height: 55px;
     background: #406200;
+    margin: 15px 0 0 30px;
 }
 
 .btn {
     position: absolute;
     top: 650px;
-    left: 625px;
+    /*left: 43%;*/
     font: bold 30px Sathu, sans-serif;
     text-align: center;
     padding-top: 10px;
@@ -59,21 +67,20 @@ body {
     background: gold;
     border-radius: 5px;
     z-index: 5;
+    margin-top: 30px;
 }
 
 .winBanner {
     position: absolute;
-    top: 50vh;
-    left: 23vw;
+    top: 40%;
+    /*left: 28%;*/
     background: bisque;
     max-width: 720px;
     padding: 30px;
     border-radius: 10px;
     font: bold 30px Arial, sans-serif;
-    min-height: 92px;
     z-index: 5;
     transition: all 2s;
-    /*display: none;*/
 }
 
 .active {
@@ -87,110 +94,31 @@ body {
     transition: all 2s;
 }
 
-
-
-@media (max-width: 1400px) {
-    .click-counter {
-        left: 700px;
-    }
-    .timer {
-        left: 400px;
-    }
-    #puzzle {
-        left: 350px;
-    }
+@media (max-width: 540px) {
     .btn {
-        top: 650px;
-        left: 625px;
+        top: 520px;
     }
 }
 
-@media (max-width: 1000px) {
-    .click-counter {
-        left: 600px;
+@media (max-width: 390px) {
+    .btn {
+        top: 400px;
     }
     .timer {
-        left: 300px;
-    }
-    #puzzle {
-        left: 250px;
-    }
-}
-
-@media (max-width: 840px) {
-    .click-counter {
-        left: 400px;
-    }
-    .timer {
-        left: 200px;
-    }
-    #puzzle {
-        left: 100px;
-    }
-}
-
-@media (max-width: 640px) {
-    .click-counter {
-        left: 350px;
-    }
-    .timer {
-        left: 100px;
-    }
-    #puzzle {
-        left: 20px;
-    }
-}
-
-@media (max-width: 500px) {
-    .click-counter {
-        left: 270px;
-        top: 450px;
-    }
-    .timer {
-        left: 80px;
-        top: 450px;
-    }
-    #puzzle {
-        left: 50px;
-    }
-}
-
-@media (max-width: 450px) {
-    .click-counter {
-        font-size: 20px;
-        width: 80px;
+        font: bold 20px Sathu, sans-serif;
+        width: 90px;
         height: 45px;
-        left: 200px;
-        top: 380px;
     }
-    .timer {
-        font-size: 20px;
-        width: 80px;
-        height: 45px;
-        left: 50px;
-        top: 380px;
-    }
-    #puzzle {
-        left: 15px;
-    }
-}
-
-@media (max-width: 420px) {
     .click-counter {
-        font-size: 20px;
-        width: 80px;
+        font: bold 20px Sathu, sans-serif;
+        width: 90px;
         height: 45px;
-        left: 270px;
-        top: 420px;
     }
-    .timer {
-        font-size: 20px;
+    .iconSound {
         width: 80px;
-        height: 45px;
-        left: 50px;
-        top: 420px;
+        height: 80px;
     }
     #puzzle {
-        left: 25px;
+        top: 17%;
     }
 }
