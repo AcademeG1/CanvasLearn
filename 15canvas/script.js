@@ -4,6 +4,8 @@ function initCanvas() {
     document.body.prepend(can)
 }
 
+// window.res
+
 initCanvas() // создание и показ канваса
 
 let swipeSound;
@@ -265,7 +267,7 @@ function initial() {
 
 
             fon.classList.add('active')
-            document.body.prepend(fon) // затемнение
+            document.body.append(fon) // затемнение
 
             objGame.mix(300)
             context.fillStyle = '#A4FB00' // цвет фона

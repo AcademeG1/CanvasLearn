@@ -3,6 +3,7 @@ body {
     transition: all 2s;
     display: flex;
     justify-content: center;
+    overflow: hidden;
 }
 
 .iconSound {
