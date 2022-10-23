@@ -3,7 +3,7 @@ body {
     transition: all 2s;
     display: flex;
     justify-content: center;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 .iconSound {
@@ -57,7 +57,7 @@ body {
 
 .btn {
     position: absolute;
-    top: 650px;
+    top: 570px;
     /*left: 43%;*/
     font: bold 30px Sathu, sans-serif;
     text-align: center;
@@ -68,7 +68,21 @@ body {
     background: gold;
     border-radius: 5px;
     z-index: 5;
-    margin-top: 30px;
+}
+
+.btnSave {
+    position: absolute;
+    top: 630px;
+    /*left: 43%;*/
+    font: bold 30px Sathu, sans-serif;
+    text-align: center;
+    padding-top: 10px;
+    width: 200px;
+    height: 45px;
+    cursor: pointer;
+    background: red;
+    border-radius: 5px;
+    z-index: 2;
 }
 
 .winBanner {
@@ -89,7 +103,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 108%;
     z-index: 4;
     background: rgba(0,0,0,0.5);
     transition: all 2s;
@@ -103,7 +117,10 @@ body {
 
 @media (max-width: 390px) {
     .btn {
-        top: 400px;
+        top: 415px;
+    }
+    .btnSave {
+        top: 480px;
     }
     .timer {
         font: bold 20px Sathu, sans-serif;

@@ -47,12 +47,19 @@ let bannerText;
 let fon = document.createElement('div')
 
 
-//let flexDiv = document.createElement('div');
-//flexDiv.className = 'count-timer';
 
+let saveBtn = document.createElement('div')
+saveBtn.className = 'btnSave'
+saveBtn.prepend(document.createTextNode('Save Game'))
+document.body.append(saveBtn)
 
-
-
+saveBtn.addEventListener('click', () => {
+    localStorage.setItem('arrNum', JSON.stringify(arrNum)) // сейв инфы
+    localStorage.setItem('timerMinute', JSON.stringify(timerMinute))
+    localStorage.setItem('timerSecond', JSON.stringify(timerSecond))
+    localStorage.setItem('clickss', JSON.stringify(click))
+    alert('Игра сохранена, после перезагрузки страницы или открытия страницы снова, будет продолжение игры')
+})
 
 let click = 0;
 let arrNum = [[1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,0]]
@@ -177,8 +184,8 @@ function initial() {
     const canvas = document.getElementById('puzzle'), // создаем канвас и контекст
         context = canvas.getContext('2d');
     if (window.innerWidth >= 541) {
-        canvas.width = 500; // ширина игровой области
-        canvas.height = 500; // высота игровой области
+        canvas.width = 400; // ширина игровой области
+        canvas.height = 400; // высота игровой области
     }
 
     if (window.innerWidth <= 540) {
@@ -275,10 +282,7 @@ function initial() {
             objGame.draw(context, panelSize)
         }
         document.querySelector('.click-counter').innerHTML = `${click}`
-        localStorage.setItem('arrNum', JSON.stringify(arrNum)) // сейв инфы
-        localStorage.setItem('timerMinute', JSON.stringify(timerMinute))
-        localStorage.setItem('timerSecond', JSON.stringify(timerSecond))
-        localStorage.setItem('clickss', JSON.stringify(click))
+        // были сейвы тут
     }
 
 
