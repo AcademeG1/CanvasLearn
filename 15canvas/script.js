@@ -4,13 +4,18 @@ function initCanvas() {
     document.body.prepend(can)
 }
 
-// window.res
+let score = {}
+let scoreNum = 1;
 
 initCanvas() // создание и показ канваса
 
+
+
+
+
 let swipeSound;
 swipeSound = new Audio('./25d7ee378d6addc.mp3');
-let soundOn = true;
+let soundOn = false;
 
 //иконка звука
 let iconSound = document.createElement("img")
@@ -46,7 +51,10 @@ let bannerText;
 
 let fon = document.createElement('div')
 
-
+let scoreBtn = document.createElement('div');
+scoreBtn.className = 'scoreBtn'
+scoreBtn.append(document.createTextNode('Top Score'))
+document.body.prepend(scoreBtn)
 
 let saveBtn = document.createElement('div')
 saveBtn.className = 'btnSave'
@@ -59,6 +67,53 @@ saveBtn.addEventListener('click', () => {
     localStorage.setItem('timerSecond', JSON.stringify(timerSecond))
     localStorage.setItem('clickss', JSON.stringify(click))
     alert('Игра сохранена, после перезагрузки страницы или открытия страницы снова, будет продолжение игры')
+})
+
+
+// таблица рекордов
+// let br = document.createElement('br')
+let tableScore = document.createElement('div')
+tableScore.className = 'tableScore'
+let tableText = document.createTextNode('Таблица лучших результатов\r\n')
+// tableScore.append(br)
+tableScore.prepend(tableText)
+document.body.append(tableScore)
+
+// закрытие окошка с таблицей
+let closeA = document.createElement('span')
+closeA.className = 'tableScoreClose'
+tableScore.prepend(closeA)
+closeA.addEventListener('click', () => {
+    tableScore.style.display = 'none'
+    tableText.textContent = ''
+    fon.classList.remove('active')
+    btn.style.zIndex = '5'
+})
+
+//открытие окошка с таблицей
+scoreBtn.addEventListener('click', () => {
+    if (Object.entries(score).length === 0) {
+        tableText.textContent = 'Таблица лучших результатов\r\n'
+        // tableScore.prepend(tableText)
+    } else {
+        tableText.textContent += 'Таблица лучших результатов\r\n'
+        // tableScore.prepend(tableText)
+        for (let key in score) {
+            tableText.textContent += '\r\n' + `${key}. ${score[key]}\r\n`
+            // tableScore.append()
+            // tableScore.append(br)
+        }
+    }
+    btn.style.zIndex = '4'
+    fon.classList.add('active')
+    fon.style.height = String(Math.max(
+        document.body.scrollHeight, document.documentElement.scrollHeight,
+        document.body.offsetHeight, document.documentElement.offsetHeight,
+        document.body.clientHeight, document.documentElement.clientHeight
+    ))+ 'px';
+    document.body.append(fon) // затемнение
+    tableScore.style.display = 'flex'
+    // tableScore.prepend(tableText)
 })
 
 let click = 0;
@@ -271,7 +326,15 @@ function initial() {
             bannerText = document.createTextNode(`Ура! Вы решили головоломку за ${timerMinute}: ${timerSecond} и ${click} ходов!`)
             banner.prepend(bannerText)
             document.body.append(banner)
-
+            if (Object.entries(score).length === 0) {
+                score[String(scoreNum)] = `Результат: ${timerMinute}: ${timerSecond} и ${click} ходов !`;
+            } else {
+                if (scoreNum > 10) {
+                    scoreNum=0
+                }
+                scoreNum++;
+                score[String(scoreNum)] = `Результат: ${timerMinute}: ${timerSecond} и ${click} ходов !`;
+            }
 
             fon.classList.add('active')
             fon.style.height = String(Math.max(

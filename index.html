@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+</head>
+<body style="margin: 0">
+  <canvas id="canvas" style="display: block">Your browser is not support</canvas>
+
+  <script>
+      let canvas = document.getElementById('canvas'),
+      ctx = canvas.getContext('2d')
+      canvas.width = window.innerWidth;
+      canvas.height =  window.innerHeight;
+
+      let gradient = ctx.createLinearGradient(0, 0, 900, 0)
+      gradient.addColorStop('0', 'magenta')
+      gradient.addColorStop('.50', 'blue')
+      gradient.addColorStop('1', 'red')
+
+      //code rectangle
+
+      let x = 50;
+      let y = 50;
+      // ctx.fillStyle = 'magenta'
+      // ctx.fillRect(x, 50, 300, 200)
+
+      // рисование анимации
+
+      // setInterval(() => {
+      //     ctx.fillStyle = 'white'
+      //     ctx.fillRect(0, 0, canvas.width, canvas.height)
+      //
+      //     ctx.fillStyle = 'magenta'
+      //     ctx.fillRect(x++,y++, 300, 200)
+      // }, 10000)
+
+      // end рисование анимации
+      ctx.lineWidth = 10
+      ctx.strokeStyle = 'magenta'
+      ctx.strokeRect(x+310,y+210,300,200)
+
+      // круг
+      ctx.arc(canvas.width / 2, canvas.height / 2, 30, 0, Math.PI/2);
+      ctx.fill();
+      // end круг
+
+      //треугольник
+
+      // ctx.rotate(.4)
+      // ctx.lineWidth = 5
+      // ctx.strokeStyle = 'red'
+      // // ctx.scale(3, 3)
+      // ctx.beginPath();
+      // ctx.moveTo(550, 550);
+      // ctx.lineTo(525, 600);
+      // ctx.lineTo(575, 600);
+      // ctx.closePath();
+      // ctx.stroke();
+
+      // end треугольник
+      ctx.fillStyle = gradient
+      ctx.font = '60px Georgia'
+      ctx.fillText('Hello world la la', 150, 150);
+  </script>
+</body>
+</html>

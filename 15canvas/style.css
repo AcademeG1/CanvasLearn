@@ -111,6 +111,48 @@ body {
     transition: all 2s;
 }
 
+.scoreBtn {
+    position: absolute;
+    top: 689px;
+    /*left: 43%;*/
+    font: bold 30px Sathu, sans-serif;
+    text-align: center;
+    padding-top: 10px;
+    width: 200px;
+    height: 45px;
+    cursor: pointer;
+    background: blueviolet;
+    border-radius: 5px;
+    z-index: 2;
+}
+
+.tableScore {
+    position: absolute;
+    top: 30px;
+    width: 440px;
+    height: 385px;
+    background: bisque;
+    border-radius: 10px;
+    /*display: flex;*/
+    /*justify-content: center;*/
+    font: bold 25px Sathu, sans-serif;
+    padding: 10px 0 0 20px;
+    display: none;
+    transition: all 2s;
+    z-index: 10;
+}
+
+.tableScoreClose {
+    background: url("1487086345-cross_81577.svg");
+    background-size: contain;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+}
+
 @media (max-width: 540px) {
     .btn {
         top: 520px;
@@ -123,6 +165,9 @@ body {
     }
     .btnSave {
         top: 480px;
+    }
+    .scoreBtn {
+        top: 510px;
     }
     .timer {
         font: bold 20px Sathu, sans-serif;

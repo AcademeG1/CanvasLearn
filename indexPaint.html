@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Paint</title>
+</head>
+<body>
+<canvas id="canvas" style="display: block">Your browser is not support</canvas>
+
+<script>
+    let canvas = document.getElementById('canvas'),
+        ctx = canvas.getContext('2d')
+    canvas.width = window.innerWidth;
+    canvas.height =  window.innerHeight;
+    let coords = []
+    let isMouseDown = false
+
+    addEventListener('mousedown', function () {
+        isMouseDown = true
+    })
+    
+    addEventListener('mouseup', function () {
+        isMouseDown = false;
+        ctx.beginPath();
+        coords.push('mouseup')
+    })
+
+    ctx.lineWidth = 10 * 2;
+
+    canvas.addEventListener("mousemove", function (coordinate) {
+        if (isMouseDown) {
+            coords.push([coordinate.clientX, coordinate.clientY])
+            ctx.lineTo(coordinate.clientX, coordinate.clientY);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(coordinate.clientX, coordinate.clientY, 10, 0, Math.PI * 2)
+            ctx.fill()
+
+            ctx.beginPath()
+            ctx.moveTo(coordinate.clientX, coordinate.clientY)
+        }
+    })
+    
+    function save() {
+        localStorage.setItem('coords', JSON.stringify(coords))
+    }
+    
+    function clear() {
+        ctx.fillStyle = 'white'
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+        ctx.beginPath(); // зачем beginPath
+        ctx.fillStyle = 'black'
+    }
+
+    function reply() {
+        let timer = setInterval(function () {
+            if ( !coords.length ) {
+                clearInterval(timer)
+                ctx.beginPath()
+                return
+            }
+
+            let crd = coords.shift(),
+                coordinate = {
+                    clientX : crd['0'],
+                    clientY : crd['1'],
+                }
+
+            coords.push([coordinate.clientX, coordinate.clientY])
+            ctx.lineTo(coordinate.clientX, coordinate.clientY);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(coordinate.clientX, coordinate.clientY, 10, 0, Math.PI * 2)
+            ctx.fill()
+
+            ctx.beginPath()
+            ctx.moveTo(coordinate.clientX, coordinate.clientY)
+
+        }, 20);
+    }
+
+    document.addEventListener('keydown', function (e) {
+        if (e.keyCode === 83) {
+            // save
+            save();
+            console.log('save')
+        }
+        if (e.keyCode === 82) {
+        //    r
+            coords = JSON.parse(localStorage.getItem('coords'));
+            clear();
+            reply();
+            console.log('reply')
+        }
+        if (e.keyCode === 67) {
+        //    clear
+            clear();
+            console.log('clear')
+        }
+    })
+</script>
+</body>
+</html>
