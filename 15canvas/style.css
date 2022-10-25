@@ -153,10 +153,52 @@ body {
     cursor: pointer;
 }
 
+.resizeBtn {
+    position: absolute;
+    top: 752px;
+    /*left: 43%;*/
+    font: bold 30px Sathu, sans-serif;
+    text-align: center;
+    padding-top: 10px;
+    width: 100px;
+    height: 45px;
+    cursor: pointer;
+    background: #22bad5;
+    border-radius: 5px;
+
+}
+
+.threeBtn {
+    font: bold 30px Sathu, sans-serif;
+    text-align: center;
+    padding-top: 10px;
+    width: 100px;
+    height: 40px;
+    cursor: pointer;
+    background: coral;
+    border-radius: 5px;
+    z-index: 2;
+}
+
+.paneSize {
+    position: absolute;
+    top: 752px;
+    background: #406200;
+    max-width: 550px;
+    min-width: 550px;
+    height: 70px;
+    border-radius: 5px;
+    z-index: 2;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
 @media (max-width: 540px) {
     .btn {
         top: 520px;
     }
+
 }
 
 @media (max-width: 390px) {
@@ -167,7 +209,7 @@ body {
         top: 480px;
     }
     .scoreBtn {
-        top: 510px;
+        top: 543px;
     }
     .timer {
         font: bold 20px Sathu, sans-serif;
@@ -186,4 +228,14 @@ body {
     #puzzle {
         top: 135px;
     }
+    .paneSize {
+        top: 630px;
+        min-width: 290px;
+    }
+    .threeBtn {
+        width: 45px;
+        height: 30px;
+        font: bold 20px Sathu, sans-serif;
+    }
+
 }

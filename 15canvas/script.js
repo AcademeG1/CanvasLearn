@@ -9,8 +9,12 @@ let scoreNum = 1;
 
 initCanvas() // создание и показ канваса
 
-
-
+let threeThree = [[1,2,3], [4,5,6], [7,8,0]];
+let fourFour = [[1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,0]];
+let fiveFive = [[1,2,3,4,5], [6,7,8,9,10], [11,12,13,14,15], [16,17,18,19,20], [21,22,23,24,0]];
+let sixSix = [[1,2,3,4,5,6], [7,8,9,10,11,12], [13,14,15,16,17,18], [19,20,21,22,23,24], [25,26,27,28,29,30], [31,32,33,34,35,0]];
+let sevenSeven = [[1,2,3,4,5,6,7], [8,9,10,11,12,13,14], [15,16,17,18,19,20,21], [22,23,24,25,26,27,28], [29,30,31,32,33,34,35], [36,37,38,39,40,41,42], [43,44,45,46,47,48,0]];
+let eightEight = [[1,2,3,4,5,6,7,8], [9,10,11,12,13,14,15,16],[17,18,19,20,21,22,23,24], [25,26,27,28,29,30,31,32], [33,34,35,36,37,38,39,40], [41,42,43,44,45,46,47,48], [49,50,51,52,53,54,55,56], [57,58,59,60,61,62,63,0]];
 
 
 let swipeSound;
@@ -116,8 +120,48 @@ scoreBtn.addEventListener('click', () => {
     // tableScore.prepend(tableText)
 })
 
+//кнопки панели
+let paneSize = document.createElement('div')
+paneSize.className = 'paneSize'
+let threeBtn = document.createElement('div') //3
+threeBtn.className = 'threeBtn'
+let threeBtnBool = false;
+threeBtn.prepend(document.createTextNode('3x3'))
+paneSize.append(threeBtn)
+
+let fourBtn = document.createElement('div') //4
+fourBtn.className = 'threeBtn'
+let fourBtnBool = true;
+fourBtn.prepend(document.createTextNode('4x4'))
+paneSize.append(fourBtn)
+
+
+let fiveBtn = document.createElement('div') //5
+fiveBtn.className = 'threeBtn'
+let fiveBtnBool = false;
+fiveBtn.prepend(document.createTextNode('5x5'))
+paneSize.append(fiveBtn)
+
+let sixBtn = document.createElement('div') //6
+sixBtn.className = 'threeBtn'
+let sixBtnBool = false;
+sixBtn.prepend(document.createTextNode('6x6'))
+paneSize.append(sixBtn)
+
+let sevenBtn = document.createElement('div') //7
+sevenBtn.className = 'threeBtn'
+let sevenBtnBool = false;
+sevenBtn.prepend(document.createTextNode('7x7'))
+paneSize.append(sevenBtn)
+
+document.body.append(paneSize)
+
 let click = 0;
 let arrNum = [[1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,0]]
+
+
+
+
 function game() { // чудо класс с методами
    let panelView = null;
    let panelNumber = null;
@@ -164,7 +208,24 @@ function game() { // чудо класс с методами
     // swipeSound
     // проверка победы каждый ход
     this.win = function () {
-        let etalon = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 0]] // как выглядит эталонная и победная часть
+        let etalon = []
+        if (fourBtnBool) {
+            etalon = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 0]]
+        }
+         // как выглядит эталонная и победная часть
+        if (threeBtnBool) {
+            etalon = [[1,2,3], [4,5,6], [7,8,0]];
+        }
+        if (fiveBtnBool) {
+            etalon = [[1,2,3,4,5], [6,7,8,9,10], [11,12,13,14,15], [16,17,18,19,20], [21,22,23,24,0]];
+        }
+        if (sixBtnBool) {
+            etalon = [[1,2,3,4,5,6], [7,8,9,10,11,12], [13,14,15,16,17,18], [19,20,21,22,23,24], [25,26,27,28,29,30], [31,32,33,34,35,0]];
+        }
+        if (sevenBtnBool) {
+            etalon = [[1,2,3,4,5,6,7], [8,9,10,11,12,13,14], [15,16,17,18,19,20,21], [22,23,24,25,26,27,28], [29,30,31,32,33,34,35], [36,37,38,39,40,41,42], [43,44,45,46,47,48,0]];
+        }
+          // исправить тут под размер
         let result = true // сходу результат пускай будет тру
         for (let i = 0; i < etalon.length; i++) { // перебор эталона и измененного массива
             for (let j = 0; j < etalon[0].length; j++){ // перебор эталона и измененного массива
@@ -191,10 +252,33 @@ function game() { // чудо класс с методами
 
             if (!leftMove && upMove) { y = nullY; x = nullX + 1 }
             if (leftMove && upMove) { x = nullX; y = nullY - 1 }
-
-            if (0 <= x && x <= 3 && 0 <= y && y <= 3) {
-                this.move(x, y)
+// исправить тут
+            if (threeBtnBool) {
+                if (0 <= x && x <= 2 && 0 <= y && y <= 2) {
+                    this.move(x, y)
+                }
             }
+            if (fourBtnBool) {
+                if (0 <= x && x <= 3 && 0 <= y && y <= 3) {
+                    this.move(x, y)
+                }
+            }
+            if (fiveBtnBool) {
+                if (0 <= x && x <= 4 && 0 <= y && y <= 4) {
+                    this.move(x, y)
+                }
+            }
+            if (sixBtnBool) {
+                if (0 <= x && x <= 5 && 0 <= y && y <= 5) {
+                    this.move(x, y)
+                }
+            }
+            if (sevenBtnBool) {
+                if (0 <= x && x <= 6 && 0 <= y && y <= 6) {
+                    this.move(x, y)
+                }
+            }
+
         }
         click = 0;
     };
@@ -213,8 +297,8 @@ function game() { // чудо класс с методами
     }
 
     this.draw = function (context, size) {
-        for (let i = 0; i < 4; i++) { // проход по массиву
-            for (let j = 0; j < 4; j++) { // проход по массиву
+        for (let i = 0; i < arrNum.length; i++) { // проход по массиву
+            for (let j = 0; j < arrNum.length; j++) { // проход по массиву
 
                 if (arrNum[i][j] > 0) { // проверка или элемент не пустое место
 
@@ -235,6 +319,7 @@ function game() { // чудо класс с методами
 
 
 
+
 function initial() {
     const canvas = document.getElementById('puzzle'), // создаем канвас и контекст
         context = canvas.getContext('2d');
@@ -252,7 +337,26 @@ function initial() {
         canvas.width = 260; // ширина игровой области
         canvas.height = 260; // высота игровой области
     }
-    
+
+    window.addEventListener('resize', () => {
+        if (window.outerWidth >= 541) {
+            canvas.width = 400; // ширина игровой области
+            canvas.height = 400; // высота игровой области
+        }
+
+        if (window.outerWidth <= 540) {
+            canvas.width = 350; // ширина игровой области
+            canvas.height = 350; // высота игровой области
+        }
+
+        if (window.outerWidth <= 390) {
+            canvas.width = 260; // ширина игровой области
+            canvas.height = 260; // высота игровой области
+        }
+        context.fillStyle = '#A4FB00' // цвет фона
+        context.fillRect(0, 0, canvas.width, canvas.height) // заливаем фон
+        objGame.draw(context, panelSize)
+    })
     
     function updateCounter() {
         click++;
@@ -261,11 +365,91 @@ function initial() {
         document.querySelector('.click-counter').innerHTML = `${click}`
     }
 
-    let panelSize = canvas.width / 4;
 
+    let panelSize = canvas.width / 4;
     let objGame = new game();
+    threeBtn.addEventListener('click', () => {
+        context.fillStyle = '#A4FB00' // цвет фона
+        context.fillRect(0, 0, canvas.width, canvas.height) // заливаем фон
+
+        arrNum = threeThree;
+        panelSize = canvas.width / 3;
+        // initial()
+        threeBtnBool = true
+        fourBtnBool = false;
+        fiveBtnBool = false;
+        sixBtnBool = false;
+        sevenBtnBool = false;
+        objGame.mix(300)
+        objGame.draw(context, panelSize)
+    })
+
+    fourBtn.addEventListener('click', () => {
+        context.fillStyle = '#A4FB00' // цвет фона
+        context.fillRect(0, 0, canvas.width, canvas.height) // заливаем фон
+
+        arrNum = fourFour;
+        panelSize = canvas.width / 4;
+        // initial()
+        threeBtnBool = false
+        fourBtnBool = true;
+        fiveBtnBool = false;
+        sixBtnBool = false;
+        sevenBtnBool = false;
+        objGame.mix(900)
+        objGame.draw(context, panelSize)
+    })
+
+    fiveBtn.addEventListener('click', () => {
+        context.fillStyle = '#A4FB00' // цвет фона
+        context.fillRect(0, 0, canvas.width, canvas.height) // заливаем фон
+
+        arrNum = fiveFive;
+        panelSize = canvas.width / 5;
+        // initial()
+        threeBtnBool = false
+        fourBtnBool = false;
+        fiveBtnBool = true;
+        sixBtnBool = false;
+        sevenBtnBool = false;
+        objGame.mix(5493)
+        objGame.draw(context, panelSize)
+    })
+
+    sixBtn.addEventListener('click', () => {
+        context.fillStyle = '#A4FB00' // цвет фона
+        context.fillRect(0, 0, canvas.width, canvas.height) // заливаем фон
+
+        arrNum = sixSix;
+        panelSize = canvas.width / 6;
+        // initial()
+        threeBtnBool = false
+        fourBtnBool = false;
+        fiveBtnBool = false;
+        sixBtnBool = true;
+        sevenBtnBool = false;
+        objGame.mix(7783)
+        objGame.draw(context, panelSize)
+    })
+
+    sevenBtn.addEventListener('click', () => {
+        context.fillStyle = '#A4FB00' // цвет фона
+        context.fillRect(0, 0, canvas.width, canvas.height) // заливаем фон
+
+        arrNum = sevenSeven;
+        panelSize = canvas.width / 7;
+        // initial()
+        threeBtnBool = false
+        fourBtnBool = false;
+        fiveBtnBool = false;
+        sixBtnBool = false;
+        sevenBtnBool = true;
+        objGame.mix(653456)
+        objGame.draw(context, panelSize)
+    })
+
     //если локал сторадже что-то содержит, то
-    if (localStorage.length === 0) {
+    if (localStorage.length <= 1) {
         objGame.mix(500); // перемешиваем 500 раз
     } else {
         arrNum = JSON.parse(localStorage.getItem('arrNum'))
@@ -300,7 +484,7 @@ function initial() {
         roundedRect(context,x + 3, y + 3 , panelSize - 8, panelSize - 8, 10)
     });
     objGame.setPanelNumber(function () {
-        context.font = `bold ${canvas.width / 8}px Arial, sans-serif`
+        context.font = `bold ${canvas.width / 9}px Arial, sans-serif`
         context.textAlign = 'center'
         context.textBaseline = 'middle'
         context.fillStyle = '#00285C'
@@ -335,7 +519,7 @@ function initial() {
                 scoreNum++;
                 score[String(scoreNum)] = `Результат: ${timerMinute}: ${timerSecond} и ${click} ходов !`;
             }
-
+            localStorage.setItem('score', JSON.stringify(score)) // сейв инфы
             fon.classList.add('active')
             fon.style.height = String(Math.max(
                 document.body.scrollHeight, document.documentElement.scrollHeight,
@@ -346,10 +530,10 @@ function initial() {
 
 
 
-            objGame.mix(300)
-            context.fillStyle = '#A4FB00' // цвет фона
-            context.fillRect(0, 0, canvas.width, canvas.height) // заливаем фон
-            objGame.draw(context, panelSize)
+            // objGame.mix(300)
+            // context.fillStyle = '#A4FB00' // цвет фона
+            // context.fillRect(0, 0, canvas.width, canvas.height) // заливаем фон
+            // objGame.draw(context, panelSize)
         }
         document.querySelector('.click-counter').innerHTML = `${click}`
         // были сейвы тут
@@ -359,6 +543,7 @@ function initial() {
     btn.addEventListener('click', () => {
 
         objGame.mix(300)
+        // initial()
         click = 0
         document.querySelector('.click-counter').innerHTML = `${click}`
         timerMinute = 0 // минут
